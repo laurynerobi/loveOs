@@ -11,18 +11,18 @@ import "swiper/css/effect-fade";
 import logo from "../assets/logo.png";
 
 // 🎥 Intro videos
-import video1 from "../assets/video1.mp4";
-import video2 from "../assets/video2.mp4";
-import video3 from "../assets/video3.mp4";
+import video1 from "../assets/Video1.mp4";
+import video2 from "../assets/Video2.mp4";
+import video3 from "../assets/Video3.mp4";
 
 // ✅ Background image import
 import background3 from "../assets/background2.jpg";
 
 /**
  * Dynamically load gallery images
- * gallery1.jpg → gallery30.jpg
+ * gallery1.jpg → gallery29.jpg
  */
-const galleryImages = Array.from({ length: 30 }, (_, i) => ({
+const galleryImages = Array.from({ length: 29 }, (_, i) => ({
   src: new URL(`../assets/gallery${i + 1}.jpg`, import.meta.url).href,
 }));
 
