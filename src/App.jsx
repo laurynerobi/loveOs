@@ -3,6 +3,7 @@ import "flowbite";
 import logo from "./assets/logo.png";
 import FloatingHearts from "./components/FloatingHearts";
 import letter from "./assets/letter.png";
+import background2 from "./assets/background2.jpg"; // ✅ NEW: background image import
 import { Link, useNavigate } from "react-router-dom";
 
 export default function App() {
@@ -13,7 +14,7 @@ export default function App() {
   // Alert visibility
   const [showAlert, setShowAlert] = useState(false);
 
-  // Auto-hide alert after Jan 1
+  // Auto-show alert before Jan 1, 2026
   useEffect(() => {
     const today = new Date();
     const hideAfter = new Date("2026-01-01T00:00:00");
@@ -33,7 +34,9 @@ export default function App() {
 
   return (
     <>
-      {/* Alert Banner */}
+      {/* =======================
+          Alert Banner
+      ======================= */}
       {showAlert && (
         <div className="fixed top-0 left-0 w-full z-[60] bg-white/80 backdrop-blur-md border-b border-pink-200 shadow-sm">
           <div className="max-w-screen-xl mx-auto px-4 py-2 flex items-center justify-between text-sm text-gray-800">
@@ -53,9 +56,11 @@ export default function App() {
         </div>
       )}
 
-      {/* Navbar */}
+      {/* =======================
+          Navbar
+      ======================= */}
       <nav
-        className={`fixed left-0 w-full z-50 bg-transparent backdrop-blur-md ${
+        className={`fixed left-0 w-full z-50 backdrop-blur-md bg-transparent ${
           showAlert ? "top-10" : "top-0"
         }`}
       >
@@ -92,35 +97,52 @@ export default function App() {
         </div>
       </nav>
 
-      {/* Main Section */}
-      <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-pink-100 via-purple-100 to-blue-100">
+      {/* =======================
+          Main Section
+      ======================= */}
+      <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+
+        {/* ✅ NEW: Background Image Layer */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${background2})` }}
+        />
+
+        {/* ✅ NEW: Gradient Overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-100/80 via-purple-100/70 to-blue-100/80" />
+
+        {/* Floating Hearts animation */}
         <FloatingHearts />
 
+        {/* =======================
+            Main Content
+        ======================= */}
         <div className="flex flex-col md:flex-row items-center justify-between w-11/12 md:w-9/12 mt-28 relative z-10">
-          {/* Left */}
-                <div className="flex-1 text-left">
-                <h1
-                  className="text-5xl font-bold tracking-wide text-gray-800 mb-6 flex flex-wrap"
-                  style={{ fontFamily: '"Playfair Display", serif' }}
+
+          {/* Left Content */}
+          <div className="flex-1 text-left">
+            <h1
+              className="text-5xl font-bold tracking-wide text-gray-800 mb-6 flex flex-wrap"
+              style={{ fontFamily: '"Playfair Display", serif' }}
+            >
+              {fullText.split("").map((char, i) => (
+                <span
+                  key={i}
+                  className="inline-block opacity-0 animate-fadeIn"
+                  style={{ animationDelay: `${i * 0.1}s` }}
                 >
-                  {fullText.split("").map((char, i) => (
-                  <span
-                    key={i}
-                    className="inline-block opacity-0 animate-fadeIn"
-                    style={{ animationDelay: `${i * 0.1}s` }}
-                  >
-                    {char === " " ? "\u00A0" : char}
-                  </span>
-                  ))}
-                  <span className="animate-pulse text-pink-400">|</span>
-                </h1>
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+              <span className="animate-pulse text-pink-400">|</span>
+            </h1>
 
-                <p className="text-lg text-gray-700 max-w-md">
-                  A little digital love letter — built from scratch, just for Ray.
-                </p>
-                </div>
+            <p className="text-lg text-gray-700 max-w-md">
+              A little digital love letter — built from scratch, just for Ray.
+            </p>
+          </div>
 
-                {/* Right */}
+          {/* Right Content */}
           <div className="flex-1 flex justify-center mt-10 md:mt-0">
             <img
               src={letter}
@@ -133,12 +155,15 @@ export default function App() {
           </div>
         </div>
 
-        <footer className="absolute bottom-4 text-sm text-gray-600">
+        {/* Footer */}
+        <footer className="absolute bottom-4 text-sm text-gray-600 z-10">
           Built with ❤️ using React & Tailwind by Lauryne
         </footer>
       </div>
 
-      {/* Animations */}
+      {/* =======================
+          Animations
+      ======================= */}
       <style jsx>{`
         @keyframes fadeIn {
           from {
@@ -150,6 +175,7 @@ export default function App() {
             transform: translateY(0);
           }
         }
+
         .animate-fadeIn {
           animation: fadeIn 0.5s forwards;
         }
@@ -165,6 +191,7 @@ export default function App() {
             transform: translateY(0);
           }
         }
+
         .animate-float {
           animation: float 3s ease-in-out infinite;
         }
@@ -180,6 +207,7 @@ export default function App() {
             transform: scale(1);
           }
         }
+
         .animate-openLetter {
           animation: openLetter 0.5s forwards;
         }

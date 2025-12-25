@@ -15,6 +15,9 @@ import video1 from "../assets/video1.mp4";
 import video2 from "../assets/video2.mp4";
 import video3 from "../assets/video3.mp4";
 
+// ✅ Background image import
+import background3 from "../assets/background2.jpg";
+
 /**
  * Dynamically load gallery images
  * gallery1.jpg → gallery30.jpg
@@ -27,9 +30,22 @@ export default function GalleryPage() {
   const [activeImage, setActiveImage] = useState(null);
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-b from-rose-50 via-purple-50 to-indigo-50">
+    <div className="relative min-h-screen w-full overflow-hidden">
 
-      {/* 🌸 Soft background texture */}
+      {/* =======================
+          Background Image Layer
+      ======================= */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${background3})` }}
+      />
+
+      {/* =======================
+          Gradient Overlay for readability
+      ======================= */}
+      <div className="absolute inset-0 bg-gradient-to-b from-rose-50/80 via-purple-50/70 to-indigo-50/80" />
+
+      {/* 🌸 Soft radial texture */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,192,203,0.15),_transparent_60%)]" />
 
       {/* 🧭 Navbar */}
@@ -41,21 +57,14 @@ export default function GalleryPage() {
                 Home
               </Link>
             </li>
-
             <li>
               <Link to="/about" className="hover:text-pink-500 transition">
                 About
               </Link>
             </li>
-
             <li>
-              <img
-                src={logo}
-                alt="Logo"
-                className="h-16 w-auto drop-shadow-md"
-              />
+              <img src={logo} alt="Logo" className="h-16 w-auto drop-shadow-md" />
             </li>
-
             <li>
               <Link to="/gallery" className="hover:text-pink-500 transition">
                 Gallery
@@ -71,7 +80,7 @@ export default function GalleryPage() {
       </nav>
 
       {/* 🎥 Hero Video Slider */}
-      <section className="pt-32 pb-24 px-6">
+      <section className="pt-32 pb-24 px-6 relative z-10">
         <motion.div
           className="max-w-6xl mx-auto"
           initial={{ opacity: 0, y: 40 }}
